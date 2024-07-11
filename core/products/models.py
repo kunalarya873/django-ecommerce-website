@@ -14,9 +14,6 @@ class Product(BaseModel):
 
     def save():
         pass
-
-
-
 class ProductImage(BaseModel):
     product = models.ForeignKey(Product, on_delete = models.CASCADE, related_name='product_images')
     image = models.ImageField(upload_to='product')
