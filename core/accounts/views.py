@@ -4,11 +4,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from django.contrib.auth.tokens import default_token_generator
-from django.urls import reverse
 from base.emails import send_account_activation_email  # Make sure this imports correctly
 from .models import Profile
 
-# Create your views here.
 def login_page(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -22,7 +20,7 @@ def login_page(request):
         user_obj = authenticate(username=email, password=password)
         
         if user_obj:
-            if not user_obj.profile.is_email_verified():
+            if not user_obj.profile.is_email_verified:
                 messages.warning(request, "Email not verified")
                 return HttpResponseRedirect(request.path_info)
             
@@ -55,14 +53,17 @@ def register_page(request):
             password=password
         )
         
-        profile = Profile.objects.create(user=user_obj, is_email_verified=False)
+        # Create or get the profile
+        profile, created = Profile.objects.get_or_create(user=user_obj)
+        if created:
+            profile.is_email_verified = False
+            profile.save()
         
         # Generate token
         email_token = default_token_generator.make_token(user_obj)
         
         # Send activation email
         send_account_activation_email(email, email_token)
-        
         
         messages.success(request, 'Message is sent to your email for verification')
         return redirect('login_page')  # Redirect to the login page after registration
