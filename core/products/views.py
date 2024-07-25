@@ -1,5 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from .models import Product
 
-# Create your views here.
 def get_products(request, slug):
-    return render(request, 'products/products.html')
+    try:
+        product = get_object_or_404(Product, slug=slug)
+        return render(request, 'products/products.html', context={'product': product})
+    except Exception as e:
+        print(e)
+        return render(request, '404.html')  # Ensure you have a 404.html template
