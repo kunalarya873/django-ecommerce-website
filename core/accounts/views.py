@@ -74,3 +74,6 @@ def activate_mail(request, email_token):
         return redirect('login_page')
     except Exception as e:
         return HttpResponse("Invalid Token")
+    
+
+

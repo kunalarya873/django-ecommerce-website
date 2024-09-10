@@ -83,7 +83,7 @@ $(document).ready(function() {
 			<figure class="card card-product-grid">
 				<div class="img-wrap"> <img src="/media/{{product.product_images.first.image}}"> </div>
 				<figcaption class="info-wrap border-top">
-					<a href="{% url 'get-products' product.slug %}" class="title"><b>{{product.product_name}}</b></a>
+					<a href="{% url 'get_products' product.slug %}" class="title"><b>{{product.product_name}}</b></a>
 					<div class="price mt-2">${{product.price}}</div> <!-- price-wrap.// -->
 				</figcaption>
 			</figure> <!-- card // -->

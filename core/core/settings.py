@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-w3@d^n#yl4cfv2ie5=6_#dyw664z+_t6%ayi$gj)#nqca#_0lo
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'products',
     'accounts',
     "home",
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -56,6 +57,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -147,3 +150,6 @@ EMAIL_HOST_PASSWORD = 'bfbe61e13920dc69bda83d014b55a29e'
 EMAIL_PORT = '587'
 EMAIL_USE_TLS=True
 EMAIL_SSL = False
+
+
+CORS_ALLOW_ALL_ORIGINS = True

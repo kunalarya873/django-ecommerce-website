@@ -13,6 +13,9 @@ class Profile(BaseModel):
     profile_image = models.ImageField(upload_to='profile')
     is_email_verified = models.BooleanField(default=False)
 
+    def get_cart_count(self):
+        return CartItems.objects.filter(cart)
+
 
 @receiver(post_save , sender = User)
 def  send_email_token(sender , instance , created , **kwargs):
@@ -25,3 +28,4 @@ def  send_email_token(sender , instance , created , **kwargs):
 
     except Exception as e:
         print(e)
+
